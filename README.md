@@ -1,7 +1,6 @@
 # Selenium REPL
 <img src="https://github.com/jeremyc2/Selenium-REPL/blob/main/REPL-Infographic.svg" width="400">
 
-*Currently only supports testing in Google Chrome*
 ## Before you begin
 1. Make sure you have [NodeJS](https://nodejs.org/en/) installed
 2. If you do not have PowerShell installed, make sure you have downloaded the [Chromedriver](https://chromedriver.chromium.org/downloads) executable
@@ -12,7 +11,7 @@ Open PowerShell. Enter ```npx selenium-repl```.
 ## Setup
 *If you have PowerShell installed, execute ***Setup.ps1*** and skip the remaining setup instructions.*  
 1. In a Terminal Window, navigate to this repository and enter the command ```npm install```
-2. Enter the command ```npm run setup CHROMEDRIVER_PATH``` replacing ***CHROMEDRIVER_PATH*** with the path to your folder containing chromedriver.exe†
+2. Enter the command ```npm run setup DRIVER_PATH``` replacing ***DRIVER_PATH*** with the path to your folder containing chromedriver.exe†
 
 ## Run the REPL
 *If you have PowerShell installed, execute **Start.ps1** and skip the remaining steps.*
@@ -30,11 +29,11 @@ Store Pages in ***main/pages*** and Tests in ***main/tests***.
 ### Example Test
 #### test1.js
 ```javascript
-const ChromedriverFactory = require('../ChromedriverFactory'),
+const DriverFactory = require('../DriverFactory'),
     LoginPage = require('../pages/LoginPage');
 
 function test1() {
-    var driver = new ChromedriverFactory().driver;
+    var driver = new DriverFactory().driver;
 
     driver.get('https://www.google.com');
 
@@ -87,4 +86,4 @@ module.exports = LoginPage;
 
 [JavaScript API Documentation](https://www.selenium.dev/selenium/docs/api/javascript/)
 
-†*If the chromedriver folder is your current directory or if it is in your PATH, you may omit this step.*
+†*If the webdriver folder is your current directory or if it is in your PATH, you may omit this step.*
