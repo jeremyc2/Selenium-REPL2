@@ -1,10 +1,13 @@
-const ChromedriverFactory = require('../ChromedriverFactory'),
+var browser;
+
+const DriverFactory = require('../DriverFactory'),
     selenium = require('selenium-webdriver'),
-    chrome = require('selenium-webdriver/chrome'),
     path = require('path');
 
+var globalThis[browser] = require(`selenium-webdriver/${browser}`);
+
 function buildDriver() {
-    var driver = new ChromedriverFactory(chromeOptions).driver;
+    var driver = new DriverFactory(driverOptions).driver;
     var interval = setInterval(() => {
         if(myrepl.context) {
             clearInterval(interval);
@@ -37,28 +40,28 @@ function importSelectors() {
     });
 }
 
-var chromeOptions = new chrome.Options()
+var driverOptions = new globalThis[browser].Options()
     .addArguments(`load-extension=${path.resolve(__dirname, '../../extension')}`);
 
 var myrepl;
 
-module.exports = (chromedriverPath) => {
+module.exports = (driverPath) => {
 
-    if(chromedriverPath) {
-        process.env.CHROMEDRIVER_PATH = chromedriverPath;
+    if(driverPath) {
+        process.env.DRIVER_PATH = driverPath;
     }
 
     try {
         buildDriver();
     } catch (e) {
-        throw "Error building chromedriver";
+        throw "Error building webdriver";
     }
 
     myrepl = require('repl').start();
 
     Object.assign(myrepl.context, {
         ...selenium,
-        chrome,
+        globalThis[browser],
         buildDriver,
         get,
         importSelectors
